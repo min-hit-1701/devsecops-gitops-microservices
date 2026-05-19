@@ -1,14 +1,14 @@
 # ============================================================
 # SonarQube Quality Gate Configuration
 # ============================================================
-# Khoi tao Quality Gate trong SonarQube voi cac dieu kien
-# Dat trong: Administration > Quality Gates > Create
+# Initialize Quality Gate in SonarQube with the following conditions
+# Located in: Administration > Quality Gates > Create
 # ============================================================
 
 name: "DevSecOps Security Gate"
 
 conditions:
-  # Loi huong bao mat (Blocker + Critical Security Issues)
+  # Security issues (Blocker + Critical Security Issues)
   - metric: security_rating
     op: GT
     error: "3"        # A=1, B=2, C=3 → Block if worse than C
@@ -18,12 +18,12 @@ conditions:
     op: GT
     error: "3"
 
-  # Code coverage tren code moi (≠ new code)  
+  # Code coverage on new code  
   - metric: new_coverage
     op: LT
     error: "50"       # At least 50% coverage on new code
 
-  # Duplicated lines tren code moi
+  # Duplicated lines on new code
   - metric: new_duplicated_lines_density
     op: GT
     error: "10"       # Max 10% duplication on new code

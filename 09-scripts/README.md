@@ -1,6 +1,6 @@
 # Scripts
 
-Dat script ho tro:
+Utility scripts:
 - setup local tools
 - verify env
-- cleanup aws resources
+- cleanup AWS resources

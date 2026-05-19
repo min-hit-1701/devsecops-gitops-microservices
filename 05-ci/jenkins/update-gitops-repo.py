@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python3
 """
-Script cập nhật GitOps repo với image tag mới từ CI pipeline.
-Chạy sau khi build và push ECR thành công.
+Script to update GitOps repo with new image tags from CI pipeline.
+Run after successful ECR build and push.
 
 Usage:
     python3 update-gitops-repo.py \

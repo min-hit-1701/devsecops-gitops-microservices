@@ -1,20 +1,20 @@
 # Terraform Env Dev
 
-Noi dat tfvars va main cho moi truong dev.
+Contains tfvars and main configuration for the dev environment.
 
-## Backend config
+## Backend Config
 
-Ban co the dung file:
+You can use the file:
 
 - `backend.hcl.example`
 
-Khi init module dev:
+When initializing the dev module:
 
 ```bash
 terraform init -backend-config=backend.hcl.example
 ```
 
-## Cac file chinh
+## Key Files
 
 - `backend.tf`
 - `versions.tf`
@@ -23,32 +23,32 @@ terraform init -backend-config=backend.hcl.example
 - `outputs.tf`
 - `terraform.tfvars.example`
 
-## Trinh tu chay
+## Execution Sequence
 
-### 0) Chot AWS profile dung (quan trong)
+### 0) Select the Correct AWS Profile (Important)
 
-Trong PowerShell, set profile cho phien hien tai:
+In PowerShell, set the profile for the current session:
 
 ```powershell
 $env:AWS_PROFILE = "uit-devsecops"
 aws sts get-caller-identity
 ```
 
-Neu ARN khong phai `...:user/uit-devsecops-gitops-deployer` thi dung lai va kiem tra profile.
+If the ARN is not `...:user/uit-devsecops-gitops-deployer`, stop and check the profile.
 
-1. Copy bien mau:
+1. Copy the sample variables:
 
 ```bash
 copy terraform.tfvars.example terraform.tfvars
 ```
 
-2. Init voi remote backend:
+2. Init with remote backend:
 
 ```bash
 terraform init -reconfigure -backend-config=backend.hcl.example
 ```
 
-3. Validate va plan:
+3. Validate and plan:
 
 ```bash
 terraform validate
@@ -61,9 +61,9 @@ terraform plan
 terraform apply -auto-approve
 ```
 
-Luu y: module EKS minimal cua sample app mac dinh tao node group instance `m5.large` (chi phi cao). Truoc khi apply thuc te, can chot chien luoc chi phi.
+Note: The default minimal EKS module for the sample app creates node group with `m5.large` instances (high cost). Before applying in production, confirm the cost strategy.
 
-### Cau hinh khuyen nghi cho do an (can bang on dinh va chi phi)
+### Recommended Configuration for the Project (balance stability and cost)
 
 - `node_instance_type = "t3.medium"`
 - `node_min_size = 1`
@@ -71,4 +71,4 @@ Luu y: module EKS minimal cua sample app mac dinh tao node group instance `m5.la
 - `node_max_size = 2`
 - `enable_third_node_group = false`
 
-Muc tieu: khong qua it tai nguyen de tranh loi pod scheduling, nhung van tranh cau hinh qua ton kem nhu `m5.large` tren 3 node group.
+Goal: avoid insufficient resources that cause pod scheduling errors, while avoiding overly expensive configurations like `m5.large` on 3 node groups.

@@ -1,6 +1,6 @@
 # Terraform Modules
 
-Goi y module:
+Suggested modules:
 - vpc/
 - iam/
 - ecr/

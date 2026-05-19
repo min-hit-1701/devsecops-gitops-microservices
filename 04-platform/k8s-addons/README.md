@@ -1,7 +1,7 @@
 # Kubernetes Addons
 
-Goi y:
+Suggestions:
 - ingress controller
-- external-dns (neu can)
+- external-dns (if needed)
 - metrics-server
-- cluster-autoscaler (neu can)
+- cluster-autoscaler (if needed)

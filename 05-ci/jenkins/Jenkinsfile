@@ -1,6 +1,6 @@
 // ============================================================
 // Jenkinsfile — DevSecOps CI Pipeline
-// Do an: DevSecOps + GitOps cho Microservices tren AWS
+// Capstone Project: DevSecOps + GitOps for Microservices on AWS
 // ============================================================
 
 pipeline {

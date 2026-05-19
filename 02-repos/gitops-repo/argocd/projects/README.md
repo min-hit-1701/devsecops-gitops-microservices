@@ -1,3 +1,3 @@
 # Argo CD Projects
 
-Noi dat Argo CD AppProject definitions.
+Contains Argo CD AppProject definitions.

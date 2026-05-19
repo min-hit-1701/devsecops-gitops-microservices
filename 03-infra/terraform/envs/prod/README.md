@@ -1,3 +1,3 @@
 # Terraform Env Prod
 
-Noi dat tfvars va main cho moi truong prod.
+Contains tfvars and main configuration for the prod environment.

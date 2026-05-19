@@ -1,6 +1,6 @@
 # Security Scan Reports
 
-Luu report tu:
+Stores reports from:
 - SonarQube
 - OWASP Dependency-Check
 - Trivy

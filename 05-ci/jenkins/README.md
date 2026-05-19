@@ -1,5 +1,5 @@
 # Jenkins CI
 
-- `Jenkinsfile` — Pipeline chinh (declarative, 8 stage)
-- `update-gitops-repo.py` — Script Python cap nhat GitOps repo
-- `docker-build.sh` — Script build Docker thu cong
+- `Jenkinsfile` — Main pipeline (declarative, 8 stages)
+- `update-gitops-repo.py` — Python script to update the GitOps repo
+- `docker-build.sh` — Manual Docker build script

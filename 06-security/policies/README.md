@@ -1,3 +1,3 @@
 # Security Policies
 
-Luu policy cho Kubernetes (Kyverno/OPA) neu ap dung.
+Stores policies for Kubernetes (Kyverno/OPA) if applied.

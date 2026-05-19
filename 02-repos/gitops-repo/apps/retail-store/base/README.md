@@ -1,5 +1,5 @@
 # Retail Store Base
 
-Noi dat manifests goc cho ung dung retail-store.
+Contains the base manifests for the retail-store application.
 
-Giai doan dau se dung skeleton, sau do cap nhat theo chart/manifests thuc te.
+Initially uses skeleton manifests, later updated with actual chart/manifests.

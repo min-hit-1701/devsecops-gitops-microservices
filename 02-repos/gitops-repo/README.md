@@ -1,14 +1,14 @@
 # GitOps Repo (Student Thesis)
 
-Repo nay dung de quan ly manifests trien khai cho Argo CD.
+This repo is used to manage deployment manifests for Argo CD.
 
-## Muc tieu
+## Objective
 
-- Luu Helm/Kustomize manifests theo moi truong.
-- Nhan image tag moi do CI cap nhat tu App Repo.
-- Argo CD se theo doi repo nay va sync vao EKS.
+- Store Helm/Kustomize manifests per environment.
+- Receive new image tags updated by CI from the App Repo.
+- Argo CD will watch this repo and sync into EKS.
 
-## De xuat cau truc
+## Proposed Structure
 
 ```text
 gitops-repo/
@@ -24,8 +24,8 @@ gitops-repo/
     applications/
 ```
 
-## Nguyen tac
+## Principles
 
-- Khong commit secret thuan van ban.
-- Moi thay doi image tag phai qua commit ro rang.
-- Rollback thong qua `git revert`.
+- Do not commit secrets in plain text.
+- Every image tag change must go through a clear commit.
+- Rollback via `git revert`.

@@ -1,7 +1,7 @@
 ﻿#!/bin/bash
 # ============================================================
-# Docker build script cho tat ca 5 microservice
-# Cach dung:
+# Docker build script for all 5 microservices
+# Usage:
 #   ./docker-build.sh <service> <image-tag>
 #   ./docker-build.sh all abc1234
 # ============================================================

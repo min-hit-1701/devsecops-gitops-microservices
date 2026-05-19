@@ -1,3 +1,3 @@
 # Argo CD Applications
 
-Noi dat Argo CD Application manifests.
+Contains Argo CD Application manifests.

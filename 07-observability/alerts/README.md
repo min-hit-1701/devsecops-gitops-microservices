@@ -1,6 +1,6 @@
 # Alerts
 
-Luu cau hinh canh bao:
+Stores alert configurations:
 - pipeline failures
 - pod crashloop
 - high error rate

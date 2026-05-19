@@ -1,3 +1,3 @@
 # Dashboards
 
-Luu dashboard templates (CloudWatch, Grafana).
+Stores dashboard templates (CloudWatch, Grafana).

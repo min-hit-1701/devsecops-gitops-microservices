@@ -1,34 +1,34 @@
 # DevSecOps CI Pipeline — Setup Guide
 
-## Tong quan
+## Overview
 
-CI Pipeline duoc xay dung tren Jenkins voi 3 security gates:
-1. **SonarQube SAST** — Phan tich ma nguon tinh
-2. **OWASP Dependency Check** — Kiem tra lo hong trong dependency
-3. **Trivy Image Scan** — Quet Docker image
+The CI Pipeline is built on Jenkins with 3 security gates:
+1. **SonarQube SAST** — Static source code analysis
+2. **OWASP Dependency Check** — Vulnerability scanning in dependencies
+3. **Trivy Image Scan** — Docker image scanning
 
-Chi artifact vuot qua ca 3 gate moi duoc push len ECR va deploy.
+Only artifacts that pass all 3 gates are pushed to ECR and deployed.
 
 ## Prerequisites
 
 ### 1. Jenkins Server
-- Jenkins 2.400+ cai tren EC2 (t3.medium, Amazon Linux 2023)
-- Cai plugin:
-  - `Pipeline` (mac dinh)
+- Jenkins 2.400+ installed on EC2 (t3.medium, Amazon Linux 2023)
+- Install plugins:
+  - `Pipeline` (default)
   - `Git`
   - `SonarQube Scanner`
   - `Docker Pipeline`
   - `SSH Agent`
   - `Credentials Binding`
-  - `Blue Ocean` (optional, UI dep hon)
+  - `Blue Ocean` (optional, prettier UI)
 
 ### 2. SonarQube Server
-- SonarQube 10.x cai tren EC2 hoac Docker
-- Tao project `uit-devsecops-retail-store`
-- Tao Quality Gate `DevSecOps Security Gate` (xem `security-gates/sonarqube-quality-gate.yml`)
-- Tao token cho Jenkins → luu trong Jenkins Credentials
+- SonarQube 10.x installed on EC2 or Docker
+- Create project `uit-devsecops-retail-store`
+- Create Quality Gate `DevSecOps Security Gate` (see `security-gates/sonarqube-quality-gate.yml`)
+- Create token for Jenkins → store in Jenkins Credentials
 
-### 3. Cong cu tren Jenkins agent
+### 3. Tools on Jenkins Agent
 - **Docker** — build & push images
 - **AWS CLI** — ECR login
 - **Trivy** — container image scan
@@ -46,28 +46,28 @@ Chi artifact vuot qua ca 3 gate moi duoc push len ECR va deploy.
   wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
   unzip sonar-scanner-cli-5.0.1.3006-linux.zip -d /opt/
   ```
-- **Python 3** (cho script update GitOps repo)
+- **Python 3** (for GitOps repo update script)
   ```bash
   pip3 install pyyaml
   ```
 
 ### 4. Jenkins Credentials
-Cau hinh trong Manage Jenkins > Credentials:
-- `OWASP_NVD_API_KEY` — API key tu NVD (https://nvd.nist.gov/developers/request-an-api-key)
-- `gitops-deploy-key` — SSH private key co quyen push vao GitOps repo
-- `SonarQube Token` — Token tu SonarQube server
+Configure in Manage Jenkins > Credentials:
+- `OWASP_NVD_API_KEY` — API key from NVD (https://nvd.nist.gov/developers/request-an-api-key)
+- `gitops-deploy-key` — SSH private key with push access to the GitOps repo
+- `SonarQube Token` — Token from SonarQube server
 
 ### 5. AWS IAM Permissions
-Jenkins agent can quyen:
+Jenkins agent needs permissions:
 - `AmazonEC2ContainerRegistryPowerUser` — push/pull ECR
-- Policy inline cho `ecr:GetAuthorizationToken`
+- Inline policy for `ecr:GetAuthorizationToken`
 
 ## Pipeline Flow
 
 ```
 Git Push → Jenkins Webhook
   |
-  +- Stage 1: Checkout code tu App Repo
+  +- Stage 1: Checkout code from App Repo
   +- Stage 2: Build (parallel) — Maven/Go/Yarn
   +- Stage 3: SonarQube SAST → Quality Gate
   +- Stage 4: OWASP Dependency Check → CVSS threshold
@@ -82,58 +82,58 @@ Git Push → Jenkins Webhook
 ```
 05-ci/
   jenkins/
-    Jenkinsfile              # Pipeline chinh (declarative)
-    update-gitops-repo.py    # Script Python cap nhat GitOps repo
-    docker-build.sh          # Script build Docker thủ công
-    README.md                # File nay
+    Jenkinsfile              # Main pipeline (declarative)
+    update-gitops-repo.py    # Python script to update GitOps repo
+    docker-build.sh          # Manual Docker build script
+    README.md                # This file
   security-gates/
-    sonarqube-quality-gate.yml  # Cấu hình Quality Gate
-    owasp-threshold.yml         # Threshold cho OWASP DC
-    trivy-policy.yml            # Policy cho Trivy scan
+    sonarqube-quality-gate.yml  # Quality Gate configuration
+    owasp-threshold.yml         # Threshold for OWASP DC
+    trivy-policy.yml            # Policy for Trivy scan
 ```
 
-## Cach chay Pipeline
+## How to Run the Pipeline
 
-### Auto trigger (Webhook)
-1. Cau hinh GitHub Webhook → Jenkins URL
-2. Webhook fire khi push vao App Repo
+### Auto Trigger (Webhook)
+1. Configure GitHub Webhook → Jenkins URL
+2. Webhook fires on push to App Repo
 
-### Manual trigger
-1. Vao Jenkins → Retail Store Pipeline → Build with Parameters
-2. Chon branch, image tag (optional)
+### Manual Trigger
+1. Go to Jenkins → Retail Store Pipeline → Build with Parameters
+2. Select branch, image tag (optional)
 3. Build
 
-## Kiem tra Security Gate
+## Checking Security Gates
 
 ### SonarQube
 ```
 http://<sonarqube-server>:9000/dashboard?id=uit-devsecops-retail-store
 ```
-Kiem tra Quality Gate status (PASS/FAIL)
+Check Quality Gate status (PASS/FAIL)
 
 ### OWASP Dependency Check
 Report: `dependency-check-report/dependency-check-report.html`
-Kiem tra cac dependency co CVSS >= 7.0
+Check for dependencies with CVSS >= 7.0
 
 ### Trivy
-Report: `trivy-report-<service>.json` (archived trong Jenkins artifacts)
-Kiem tra CRITICAL vulnerabilities
+Report: `trivy-report-<service>.json` (archived in Jenkins artifacts)
+Check for CRITICAL vulnerabilities
 
 ## Troubleshooting
 
-### Loi: SonarQube Quality Gate FAILED
-→ Mo SonarQube dashboard, xem issues, fix code, push lai
+### Error: SonarQube Quality Gate FAILED
+→ Open SonarQube dashboard, review issues, fix code, push again
 
-### Loi: OWASP DC found HIGH CVE
-→ Kiem tra report, neu la false positive → them vao `owasp-suppressions.xml`
+### Error: OWASP DC found HIGH CVE
+→ Check report, if false positive → add to `owasp-suppressions.xml`
 
-### Loi: Trivy found CRITICAL CVE  
-→ Kiem tra image base, update base image version
+### Error: Trivy found CRITICAL CVE
+→ Check base image, update base image version
 
-### Loi: ECR login failed
-→ Kiem tra AWS credentials tren Jenkins agent
+### Error: ECR login failed
+→ Check AWS credentials on Jenkins agent
 → `aws sts get-caller-identity`
 
-### Loi: GitOps repo push failed
-→ Kiem tra SSH key da duoc add vao GitHub repo
-→ Kiem tra quyen write tren GitOps repo
+### Error: GitOps repo push failed
+→ Check that SSH key has been added to GitHub repo
+→ Check write permissions on the GitOps repo
