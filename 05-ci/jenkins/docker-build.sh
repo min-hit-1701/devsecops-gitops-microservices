@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # ============================================================
 # Docker build script cho tat ca 5 microservice
 # Cach dung:
@@ -9,7 +9,7 @@
 set -e
 
 AWS_REGION="${AWS_REGION:-ap-southeast-1}"
-AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-758346258990}"
+AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-<AWS_ACCOUNT_ID>}"
 ECR_BASE_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 ENV_NAME="${ENVIRONMENT_NAME:-uit-devsecops-dev}"
 IMAGE_TAG="${2:-latest}"

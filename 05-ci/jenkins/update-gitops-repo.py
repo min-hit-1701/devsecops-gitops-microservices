@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 Script cập nhật GitOps repo với image tag mới từ CI pipeline.
 Chạy sau khi build và push ECR thành công.
@@ -9,7 +9,7 @@ Usage:
         --gitops-repo-path /tmp/gitops-repo \
         --services ui,cart,orders,catalog,checkout \
         --image-tag abc1234 \
-        --ecr-base-url 758346258990.dkr.ecr.ap-southeast-1.amazonaws.com
+        --ecr-base-url <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com
 """
 
 import argparse

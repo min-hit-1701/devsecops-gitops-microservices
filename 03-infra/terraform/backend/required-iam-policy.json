@@ -1,4 +1,4 @@
-{
+﻿{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -17,7 +17,7 @@
       "Sid": "AllowManageTerraformLockTable",
       "Effect": "Allow",
       "Action": "dynamodb:*",
-      "Resource": "arn:aws:dynamodb:ap-southeast-1:758346258990:table/uit-devsecops-gitops-*"
+      "Resource": "arn:aws:dynamodb:ap-southeast-1:<AWS_ACCOUNT_ID>:table/uit-devsecops-gitops-*"
     },
     {
       "Sid": "AllowS3ListBucketsForTerraform",
