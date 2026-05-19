@@ -6,7 +6,7 @@ metadata:
 spec:
   description: Retail Store DevSecOps + GitOps
   sourceRepos:
-    - https://github.com/nhatminhho/do-an-devsecops-gitops-gitops.git
+    - https://github.com/min-hit-1701/retail-store-gitops.git
   destinations:
     - namespace: retail-store-dev
       server: https://kubernetes.default.svc

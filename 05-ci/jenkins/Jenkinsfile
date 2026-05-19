@@ -14,8 +14,8 @@ pipeline {
         ENVIRONMENT_NAME       = 'uit-devsecops-dev'
 
         // Git repos
-        APP_REPO_URL           = 'https://github.com/nhatminhho/do-an-devsecops-gitops-app.git'
-        GITOPS_REPO_URL        = 'https://github.com/nhatminhho/do-an-devsecops-gitops-gitops.git'
+        APP_REPO_URL           = 'https://github.com/min-hit-1701/retail-store-app.git'
+        GITOPS_REPO_URL        = 'https://github.com/min-hit-1701/retail-store-gitops.git'
         GITOPS_REPO_PATH       = '/tmp/gitops-repo'
 
         // Services to build (comma-separated, handled in loop)

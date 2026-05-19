@@ -8,7 +8,7 @@ metadata:
 spec:
   project: retail-store
   source:
-    repoURL: https://github.com/nhatminhho/do-an-devsecops-gitops-gitops.git
+    repoURL: https://github.com/min-hit-1701/retail-store-gitops.git
     targetRevision: HEAD
     path: apps/retail-store/overlays/dev
   destination:
