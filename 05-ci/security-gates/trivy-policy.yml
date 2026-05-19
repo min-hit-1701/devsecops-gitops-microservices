@@ -1,0 +1,28 @@
+# ============================================================
+# Trivy Container Image Scan — Policy Configuration
+# ============================================================
+
+policy:
+  # Vulnerabilities
+  vulnerabilities:
+    severity: ["CRITICAL", "HIGH"]   # Only block on CRITICAL, warn on HIGH
+    ignore_unfixed: false            # Also check unfixed vulnerabilities
+
+  # Misconfigurations
+  misconfigurations:
+    severity: ["CRITICAL", "HIGH"]
+
+  # Secrets in image
+  secrets:
+    enabled: true
+    severity: ["CRITICAL"]
+
+# Ignore rules for known false positives (format: CVE-ID with reason)
+ignore:
+  - id: "CVE-2023-XXXXX"
+    reason: "False positive — this library is not used in our runtime"
+
+# Output
+output:
+  format: "json"
+  file: "trivy-report.json"

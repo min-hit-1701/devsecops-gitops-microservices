@@ -1,0 +1,32 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowManageTerraformStateBucket",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::uit-devsecops-gitops-*"
+    },
+    {
+      "Sid": "AllowObjectOpsTerraformState",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::uit-devsecops-gitops-*/*"
+    },
+    {
+      "Sid": "AllowManageTerraformLockTable",
+      "Effect": "Allow",
+      "Action": "dynamodb:*",
+      "Resource": "arn:aws:dynamodb:ap-southeast-1:758346258990:table/uit-devsecops-gitops-*"
+    },
+    {
+      "Sid": "AllowS3ListBucketsForTerraform",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListAllMyBuckets",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

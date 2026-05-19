@@ -1,0 +1,22 @@
+# ============================================================
+# OWASP Dependency Check — Threshold Configuration
+# ============================================================
+
+# Thresholds for blocking the pipeline
+threshold:
+  cvss_min_score: 7.0          # CVSS >= 7.0 = HIGH or CRITICAL
+  fail_on_any_critical: true   # Block if any CRITICAL CVE found
+
+# Suppression file for false positives
+suppression_file: "owasp-suppressions.xml"
+
+# Scan settings
+scan:
+  scan_all: true
+  formats:
+    - HTML
+    - JSON
+  directories:
+    - "src/**/pom.xml"        # Java Maven
+    - "src/**/package.json"   # Node.js / TypeScript
+    - "src/**/go.mod"         # Go modules
