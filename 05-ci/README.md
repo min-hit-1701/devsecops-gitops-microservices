@@ -53,28 +53,34 @@ Only artifacts that pass all 3 gates are pushed to ECR and deployed.
 
 ### 4. Jenkins Credentials
 Configure in Manage Jenkins > Credentials:
+- `aws-credentials` — AWS IAM credentials (type: **AWS Credentials**). Uses the CloudBees AWS Credentials plugin — no account ID is hardcoded in the pipeline. See: https://plugins.jenkins.io/aws-credentials/
 - `OWASP_NVD_API_KEY` — API key from NVD (https://nvd.nist.gov/developers/request-an-api-key)
 - `gitops-deploy-key` — SSH private key with push access to the GitOps repo
-- `SonarQube Token` — Token from SonarQube server
 
 ### 5. AWS IAM Permissions
-Jenkins agent needs permissions:
+The AWS IAM user (stored in `aws-credentials`) must have:
 - `AmazonEC2ContainerRegistryPowerUser` — push/pull ECR
-- Inline policy for `ecr:GetAuthorizationToken`
+- `AmazonEKSClusterPolicy` — EKS access (for future kubeconfig integration)
+
+### 6. How AWS Authentication Works
+No account ID or secret keys are hardcoded in the Jenkinsfile. Instead:
+1. The **CloudBees AWS Credentials Plugin** stores IAM credentials securely
+2. `withAWS(credentials: 'aws-credentials', region: 'ap-southeast-1')` injects them at runtime
+3. Account ID is resolved dynamically via `aws sts get-caller-identity`
+4. ECR authentication uses the **Amazon ECR Plugin**: `docker.withRegistry("https://<url>", "ecr:<region>:<credentials-id>")`
 
 ## Pipeline Flow
 
 ```
 Git Push → Jenkins Webhook
   |
+  +- Stage 0: AWS Setup (resolve account ID, no hardcoded values)
   +- Stage 1: Checkout code from App Repo
   +- Stage 2: Build (parallel) — Maven/Go/Yarn
   +- Stage 3: SonarQube SAST → Quality Gate
   +- Stage 4: OWASP Dependency Check → CVSS threshold
-  +- Stage 5: Docker Build (parallel) — 5 images
-  +- Stage 6: Trivy Image Scan → CRITICAL check
-  +- Stage 7: Push to ECR (parallel)
-  +- Stage 8: Update GitOps Repo → Argo CD sync
+  +- Stage 5: Docker Build → Trivy Scan → Push ECR (integrated)
+  +- Stage 6: Update GitOps Repo → Argo CD auto-sync
 ```
 
 ## File Structure
@@ -131,8 +137,9 @@ Check for CRITICAL vulnerabilities
 → Check base image, update base image version
 
 ### Error: ECR login failed
-→ Check AWS credentials on Jenkins agent
-→ `aws sts get-caller-identity`
+→ Verify `aws-credentials` is configured correctly in Jenkins
+→ Ensure the IAM user has `AmazonEC2ContainerRegistryPowerUser`
+→ Test: `aws sts get-caller-identity --profile <profile>`
 
 ### Error: GitOps repo push failed
 → Check that SSH key has been added to GitHub repo

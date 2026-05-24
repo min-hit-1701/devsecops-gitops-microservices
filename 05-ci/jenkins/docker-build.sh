@@ -9,7 +9,7 @@
 set -e
 
 AWS_REGION="${AWS_REGION:-ap-southeast-1}"
-AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-<AWS_ACCOUNT_ID>}"
+AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-$(aws sts get-caller-identity --query Account --output text)}"
 ECR_BASE_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 ENV_NAME="${ENVIRONMENT_NAME:-uit-devsecops-dev}"
 IMAGE_TAG="${2:-latest}"
