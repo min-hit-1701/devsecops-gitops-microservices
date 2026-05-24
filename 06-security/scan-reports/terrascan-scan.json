@@ -1,0 +1,37 @@
+﻿{
+  "results": {
+    "scan_errors": [
+      {
+        "iac_type": "terraform",
+        "directory": "D:\\DACN\\do-an-devsecops-gitops\\03-infra\\terraform\\modules",
+        "errMsg": "directory 'D:\\DACN\\do-an-devsecops-gitops\\03-infra\\terraform\\modules' has no terraform config files"
+      }
+    ],
+    "violations": [
+      {
+        "rule_name": "vpcFlowLogsNotEnabled",
+        "description": "Ensure VPC flow logging is enabled in all VPCs",
+        "rule_id": "AC_AWS_0369",
+        "severity": "LOW",
+        "category": "Logging and Monitoring",
+        "resource_name": "this",
+        "resource_type": "aws_vpc",
+        "module_name": "vpc",
+        "file": "git::https://github.com/terraform-aws-modules/terraform-aws-vpc?ref=7c1f791efd61f326ed6102d564d1a65d1eceedf0\\main.tf",
+        "plan_root": "vpc",
+        "line": 28
+      }
+    ],
+    "skipped_violations": null,
+    "scan_summary": {
+      "file/folder": "D:\\DACN\\do-an-devsecops-gitops\\03-infra\\terraform\\modules",
+      "iac_type": "terraform",
+      "scanned_at": "2026-05-24 12:27:50.0200697 +0000 UTC",
+      "policies_validated": 201,
+      "violated_policies": 1,
+      "low": 1,
+      "medium": 0,
+      "high": 0
+    }
+  }
+}
