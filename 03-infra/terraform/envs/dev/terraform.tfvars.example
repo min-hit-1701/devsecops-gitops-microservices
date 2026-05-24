@@ -1,9 +1,6 @@
-aws_region             = "ap-southeast-1"
-environment_name       = "uit-devsecops-dev"
-istio_enabled          = false
-opentelemetry_enabled  = false
-node_instance_type     = "t3.medium"
-node_min_size          = 1
-node_desired_size      = 1
-node_max_size          = 2
-enable_third_node_group = false
+aws_region         = "ap-southeast-1"
+environment_name   = "uit-devsecops-dev"
+node_instance_type = "t3.medium"
+node_min_size      = 1
+node_desired_size  = 1
+node_max_size      = 2

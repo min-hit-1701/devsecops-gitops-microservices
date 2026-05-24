@@ -1,13 +1,13 @@
 # ============================================================
-# Dev Environment — VPC + EKS + ECR
+# Staging Environment — VPC + EKS + ECR
 # ============================================================
 
 module "vpc" {
   source = "../../modules/vpc"
 
   environment_name   = var.environment_name
-  vpc_cidr           = "10.0.0.0/16"
-  single_nat_gateway = true
+  vpc_cidr           = "10.1.0.0/16"
+  single_nat_gateway = false
   az_count           = 3
 }
 
@@ -30,6 +30,6 @@ module "ecr" {
   source = "../../modules/ecr"
 
   environment_name     = var.environment_name
-  image_tag_mutability = "MUTABLE"
-  max_image_count      = 10
+  image_tag_mutability = "IMMUTABLE"
+  max_image_count      = 20
 }

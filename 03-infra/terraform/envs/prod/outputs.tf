@@ -7,13 +7,3 @@ output "ecr_repository_urls" {
   description = "ECR repository URLs for all microservices"
   value       = module.ecr.repository_urls
 }
-
-output "vpc_id" {
-  description = "VPC ID"
-  value       = module.vpc.vpc_id
-}
-
-output "cluster_endpoint" {
-  description = "EKS cluster API endpoint"
-  value       = module.eks.cluster_endpoint
-}
