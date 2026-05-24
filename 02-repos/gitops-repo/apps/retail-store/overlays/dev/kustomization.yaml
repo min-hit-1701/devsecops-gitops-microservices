@@ -1,22 +1,45 @@
+# Kustomize overlay for dev environment
+# Combines Kustomize patches with Helm chart rendering.
+# Helm chart: ../Chart.yaml (umbrella with 5 subchart dependencies)
+
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: retail-store-dev
 
-resources:
-  - ../../base
+# Helm chart inflation via Kustomize
+helmCharts:
+  - name: retail-store
+    repo: ""                                    # Local chart, no repo
+    version: "1.0.0"
+    releaseName: retail-store-dev
+    namespace: retail-store-dev
+    valuesFile: ../../values.yaml               # Default values
+    additionalValuesFiles:
+      - ../../overlays/dev/values-dev.yaml      # Dev-specific overrides
+    includeCRDs: true
 
-namePrefix: dev-
+# Common labels applied to all resources
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/part-of: retail-store
+      environment: dev
 
-patches:
-  - target:
-      kind: Deployment
-    patch: |
-      - op: replace
-        path: /spec/replicas
-        value: 1
-      - op: add
-        path: /spec/template/spec/containers/0/env/-
-        value:
-          name: ENVIRONMENT
-          value: dev
+# Image tag overrides per service
+images:
+  - name: ui
+    newName: <ECR_BASE_URL>/uit-devsecops-dev-ui
+    newTag: latest
+  - name: cart
+    newName: <ECR_BASE_URL>/uit-devsecops-dev-cart
+    newTag: latest
+  - name: orders
+    newName: <ECR_BASE_URL>/uit-devsecops-dev-orders
+    newTag: latest
+  - name: catalog
+    newName: <ECR_BASE_URL>/uit-devsecops-dev-catalog
+    newTag: latest
+  - name: checkout
+    newName: <ECR_BASE_URL>/uit-devsecops-dev-checkout
+    newTag: latest

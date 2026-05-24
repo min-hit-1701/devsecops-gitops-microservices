@@ -1,0 +1,57 @@
+# Staging environment overrides — stateful backends, 2 replicas, HPA
+# Merged with values.yaml
+
+ui:
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  app:
+    endpoints:
+      catalog: http://catalog.retail-store-staging:80
+      carts: http://carts.retail-store-staging:80
+      orders: http://orders.retail-store-staging:80
+      checkout: http://checkout.retail-store-staging:80
+
+cart:
+  replicaCount: 2
+  fullnameOverride: carts
+  app:
+    persistence:
+      provider: dynamodb
+  dynamodb:
+    create: true
+
+orders:
+  replicaCount: 2
+  app:
+    persistence:
+      provider: postgres
+    messaging:
+      provider: rabbitmq
+  postgresql:
+    create: true
+  rabbitmq:
+    create: true
+
+catalog:
+  replicaCount: 2
+  app:
+    persistence:
+      provider: mysql
+  mysql:
+    create: true
+
+checkout:
+  replicaCount: 2
+  app:
+    persistence:
+      provider: redis
+    endpoints:
+      orders: http://orders.retail-store-staging:80
+  redis:
+    create: true

@@ -1,0 +1,139 @@
+# Default values for retail-store umbrella chart
+# Each environment overlay overrides these via values-<env>.yaml
+
+services:
+  ui:
+    enabled: true
+  cart:
+    enabled: true
+  orders:
+    enabled: true
+  catalog:
+    enabled: true
+  checkout:
+    enabled: true
+
+# Global settings inherited by all subcharts
+global:
+  imagePullPolicy: IfNotPresent
+  metrics:
+    enabled: true
+  opentelemetry:
+    enabled: false
+
+# UI subchart values
+ui:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  app:
+    endpoints:
+      catalog: http://catalog:80
+      carts: http://carts:80
+      orders: http://orders:80
+      checkout: http://checkout:80
+  autoscaling:
+    enabled: false
+  ingress:
+    enabled: false
+  istio:
+    enabled: false
+
+# Cart subchart values
+cart:
+  replicaCount: 1
+  fullnameOverride: carts
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  app:
+    persistence:
+      provider: in-memory
+  dynamodb:
+    create: false
+  autoscaling:
+    enabled: false
+
+# Orders subchart values
+orders:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  app:
+    persistence:
+      provider: in-memory
+    messaging:
+      provider: in-memory
+  postgresql:
+    create: false
+  rabbitmq:
+    create: false
+  autoscaling:
+    enabled: false
+
+# Catalog subchart values
+catalog:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 150m
+      memory: 128Mi
+  app:
+    persistence:
+      provider: in-memory
+  mysql:
+    create: false
+  autoscaling:
+    enabled: false
+
+# Checkout subchart values
+checkout:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  app:
+    persistence:
+      provider: in-memory
+    endpoints:
+      orders: http://orders:80
+  redis:
+    create: false
+  autoscaling:
+    enabled: false

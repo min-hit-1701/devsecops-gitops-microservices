@@ -1,0 +1,40 @@
+# Kustomize overlay for staging environment
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: retail-store-staging
+
+helmCharts:
+  - name: retail-store
+    repo: ""
+    version: "1.0.0"
+    releaseName: retail-store-staging
+    namespace: retail-store-staging
+    valuesFile: ../../values.yaml
+    additionalValuesFiles:
+      - ../../overlays/staging/values-staging.yaml
+    includeCRDs: true
+
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/part-of: retail-store
+      environment: staging
+
+images:
+  - name: ui
+    newName: <ECR_BASE_URL>/uit-devsecops-staging-ui
+    newTag: latest
+  - name: cart
+    newName: <ECR_BASE_URL>/uit-devsecops-staging-cart
+    newTag: latest
+  - name: orders
+    newName: <ECR_BASE_URL>/uit-devsecops-staging-orders
+    newTag: latest
+  - name: catalog
+    newName: <ECR_BASE_URL>/uit-devsecops-staging-catalog
+    newTag: latest
+  - name: checkout
+    newName: <ECR_BASE_URL>/uit-devsecops-staging-checkout
+    newTag: latest

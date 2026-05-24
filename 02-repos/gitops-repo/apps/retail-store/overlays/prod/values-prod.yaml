@@ -1,0 +1,92 @@
+# Production environment overrides — stateful, 3+ replicas, HPA, PDB
+
+ui:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 256m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+  app:
+    endpoints:
+      catalog: http://catalog.retail-store-prod:80
+      carts: http://carts.retail-store-prod:80
+      orders: http://orders.retail-store-prod:80
+      checkout: http://checkout.retail-store-prod:80
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 50
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+
+cart:
+  replicaCount: 3
+  fullnameOverride: carts
+  app:
+    persistence:
+      provider: dynamodb
+  dynamodb:
+    create: false    # Use AWS DynamoDB service in prod
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+
+orders:
+  replicaCount: 3
+  app:
+    persistence:
+      provider: postgres
+    messaging:
+      provider: rabbitmq
+  postgresql:
+    create: true
+  rabbitmq:
+    create: true
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+
+catalog:
+  replicaCount: 3
+  app:
+    persistence:
+      provider: mysql
+  mysql:
+    create: true
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
+
+checkout:
+  replicaCount: 3
+  app:
+    persistence:
+      provider: redis
+    endpoints:
+      orders: http://orders.retail-store-prod:80
+  redis:
+    create: true
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 2
