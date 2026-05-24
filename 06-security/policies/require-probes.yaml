@@ -1,0 +1,41 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-readiness-liveness-probes
+  annotations:
+    policies.kyverno.io/title: Require Readiness & Liveness Probes
+    policies.kyverno.io/category: Reliability
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      All pods must have readiness and liveness probes configured. This ensures
+      traffic is not sent to unready pods and failed pods are restarted.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: validate-readiness-probe
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "A readiness probe is required."
+        pattern:
+          spec:
+            containers:
+              - readinessProbe: "?*"
+
+    - name: validate-liveness-probe
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "A liveness probe is required."
+        pattern:
+          spec:
+            containers:
+              - livenessProbe: "?*"

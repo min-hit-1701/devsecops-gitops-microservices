@@ -1,0 +1,45 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-root-containers
+  annotations:
+    policies.kyverno.io/title: Disallow Root Containers
+    policies.kyverno.io/category: Pod Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Running containers as root is a security risk. Containers must run as
+      non-root (runAsNonRoot: true) with an explicit non-zero user ID (runAsUser > 0).
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: run-as-non-root
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Running as root is not allowed. Set securityContext.runAsNonRoot=true and runAsUser > 0."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  runAsNonRoot: true
+                  runAsUser: ">0"
+
+    - name: run-as-non-root-ephemeral
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Running as root is not allowed for ephemeral containers."
+        pattern:
+          spec:
+            =(ephemeralContainers):
+              - securityContext:
+                  runAsNonRoot: true
+                  runAsUser: ">0"

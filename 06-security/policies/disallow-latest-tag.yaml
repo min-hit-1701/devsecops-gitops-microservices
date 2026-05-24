@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-latest-image-tag
+  annotations:
+    policies.kyverno.io/title: Disallow Latest Image Tag
+    policies.kyverno.io/category: Deployment Safety
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Using the 'latest' image tag is discouraged as it makes rollbacks
+      impossible and removes deterministic deployments. Images must use
+      a specific tag or SHA256 digest.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: no-latest-tag
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Image tag 'latest' is not allowed. Use a specific version tag or digest."
+        pattern:
+          spec:
+            containers:
+              - image: "!*:latest"

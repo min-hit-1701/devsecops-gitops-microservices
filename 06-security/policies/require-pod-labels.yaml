@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-pod-labels
+  annotations:
+    policies.kyverno.io/title: Require Common Pod Labels
+    policies.kyverno.io/category: Organizational
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      All pods must have the standard Kubernetes recommended labels:
+      app.kubernetes.io/name, app.kubernetes.io/part-of.
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: check-k8s-labels
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Pods should have app.kubernetes.io/name and app.kubernetes.io/part-of labels."
+        pattern:
+          metadata:
+            labels:
+              app.kubernetes.io/name: "?*"
+              app.kubernetes.io/part-of: "?*"
