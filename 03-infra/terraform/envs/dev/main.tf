@@ -19,11 +19,10 @@ module "eks" {
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnets
 
-  node_instance_type      = var.node_instance_type
-  node_min_size           = var.node_min_size
-  node_desired_size       = var.node_desired_size
-  node_max_size           = var.node_max_size
-  enable_third_node_group = false
+  node_instance_type = var.node_instance_type
+  node_min_size      = var.node_min_size
+  node_desired_size  = var.node_desired_size
+  node_max_size      = var.node_max_size
 }
 
 module "ecr" {

@@ -8,7 +8,7 @@
  *   owaspDependencyCheck()
  *
  * Required:
- *   - OWASP Dependency Check installed at /opt/dependency-check/
+ *   - OWASP Dependency Check installed at /var/jenkins_home/tools/dependency-check/
  *   - Environment: OWASP_NVD_API_KEY
  */
 def call() {
@@ -16,6 +16,7 @@ def call() {
 
     sh '''
         /opt/dependency-check/bin/dependency-check.sh \
+            --data /var/jenkins_home/owasp-data \
             --scan src/ \
             --format HTML \
             --format JSON \

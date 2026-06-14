@@ -46,9 +46,3 @@ variable "node_max_size" {
   type        = number
   default     = 2
 }
-
-variable "enable_third_node_group" {
-  description = "Enable a third managed node group"
-  type        = bool
-  default     = false
-}

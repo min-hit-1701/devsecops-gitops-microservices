@@ -50,7 +50,7 @@ def call() {
 
                     // SECURITY GATE 3: Trivy scan
                     sh """
-                        trivy image --severity ${env.TRIVY_SEVERITY} \
+                        /var/jenkins_home/tools/trivy image --severity ${env.TRIVY_SEVERITY} \
                             --format json \
                             --output trivy-report-${svc}.json \
                             --exit-code 0 \

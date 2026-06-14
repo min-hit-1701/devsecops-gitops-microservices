@@ -53,32 +53,20 @@ module "eks" {
       subnet_ids     = [var.private_subnet_ids[1]]
       instance_types = [var.node_instance_type]
     }
+    node_group_large = {
+      name           = "managed-ng-large"
+      min_size       = var.node_min_size
+      max_size       = var.node_max_size
+      desired_size   = var.node_desired_size
+      subnet_ids     = [var.private_subnet_ids[min(2, length(var.private_subnet_ids) - 1)]]
+      instance_types = ["t3.large"]
+    }
   }
 
   tags = {
     Environment = var.environment_name
     ManagedBy   = "Terraform"
   }
-}
-
-# Third node group (optional, disabled by default)
-resource "aws_eks_node_group" "third" {
-  count = var.enable_third_node_group ? 1 : 0
-
-  cluster_name    = module.eks.cluster_name
-  node_group_name = "managed-nodegroup-3"
-  node_role_arn   = module.eks.iam_role_arn
-
-  subnet_ids = [var.private_subnet_ids[min(2, length(var.private_subnet_ids) - 1)]]
-
-  scaling_config {
-    min_size     = var.node_min_size
-    max_size     = var.node_max_size
-    desired_size = var.node_desired_size
-  }
-
-  instance_types = [var.node_instance_type]
-  capacity_type  = "ON_DEMAND"
 }
 
 # AWS Load Balancer Controller
@@ -127,14 +115,13 @@ provider "helm" {
   }
 }
 
-# ADOT Addon (OpenTelemetry)
-resource "aws_eks_addon" "adot" {
-  cluster_name                = module.eks.cluster_name
-  addon_name                  = "adot"
-  resolve_conflicts_on_create = "OVERWRITE"
-  resolve_conflicts_on_update = "OVERWRITE"
-
-  configuration_values = jsonencode({
-    collector = {}
-  })
-}
+# ADOT Addon (OpenTelemetry) — disabled, requires cert-manager installed first
+# resource "aws_eks_addon" "adot" {
+#   cluster_name                = module.eks.cluster_name
+#   addon_name                  = "adot"
+#   resolve_conflicts_on_create = "OVERWRITE"
+#   resolve_conflicts_on_update = "OVERWRITE"
+#   configuration_values = jsonencode({
+#     collector = {}
+#   })
+# }

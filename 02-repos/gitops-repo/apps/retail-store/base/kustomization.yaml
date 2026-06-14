@@ -1,20 +1,9 @@
-# Kustomize overlay — dev environment
-# Helm chart at ../.. (Chart.yaml + templates/) requires --enable-helm
-# Plain YAML resources used for stable Argo CD sync
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: retail-store-dev
-
 resources:
-  - ../../base
-
-labels:
-  - pairs:
-      app.kubernetes.io/managed-by: argocd
-      app.kubernetes.io/part-of: retail-store
-      environment: dev
+  - deployment.yaml
+  - service.yaml
 
 images:
   - name: ui

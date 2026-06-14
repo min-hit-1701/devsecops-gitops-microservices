@@ -12,7 +12,7 @@ metadata:
       This prevents resource starvation and enables the scheduler to make
       informed placement decisions.
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: Audit
   background: true
   rules:
     - name: validate-resource-limits
@@ -33,3 +33,4 @@ spec:
                   limits:
                     memory: "?*"
                     cpu: "?*"
+

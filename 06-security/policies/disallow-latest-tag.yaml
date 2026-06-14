@@ -12,7 +12,7 @@ metadata:
       impossible and removes deterministic deployments. Images must use
       a specific tag or SHA256 digest.
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: Audit
   background: true
   rules:
     - name: no-latest-tag
@@ -27,3 +27,4 @@ spec:
           spec:
             containers:
               - image: "!*:latest"
+

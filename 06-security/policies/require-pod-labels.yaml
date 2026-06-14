@@ -27,3 +27,4 @@ spec:
             labels:
               app.kubernetes.io/name: "?*"
               app.kubernetes.io/part-of: "?*"
+

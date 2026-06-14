@@ -1,25 +1,3 @@
-# Dev environment overrides — lightweight, in-memory, single replica
-# Merged with values.yaml by Kustomize+Helm
-
+# Dev overrides — UI at 2 replicas for rollback demo
 ui:
-  replicaCount: 1
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 250m
-      memory: 256Mi
-
-cart:
-  replicaCount: 1
-  fullnameOverride: carts
-
-orders:
-  replicaCount: 1
-
-catalog:
-  replicaCount: 1
-
-checkout:
-  replicaCount: 1
+  replicaCount: 2

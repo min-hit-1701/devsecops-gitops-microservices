@@ -26,8 +26,8 @@
     "scan_summary": {
       "file/folder": "D:\\DACN\\do-an-devsecops-gitops\\03-infra\\terraform\\modules",
       "iac_type": "terraform",
-      "scanned_at": "2026-05-24 12:27:50.0200697 +0000 UTC",
-      "policies_validated": 201,
+      "scanned_at": "2026-06-05 07:47:22.6417869 +0000 UTC",
+      "policies_validated": 199,
       "violated_policies": 1,
       "low": 1,
       "medium": 0,

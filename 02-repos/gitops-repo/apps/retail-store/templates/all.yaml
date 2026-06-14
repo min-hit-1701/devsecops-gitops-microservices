@@ -1,0 +1,184 @@
+# UI
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-ui
+  labels:
+    app: ui
+spec:
+  replicas: {{ .Values.ui.replicaCount }}
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+        - name: ui
+          image: "{{ .Values.images.ui }}:{{ .Values.images.tag }}"
+          ports:
+            - containerPort: 8080
+          resources:
+            {{- toYaml .Values.ui.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-ui
+spec:
+  selector:
+    app: ui
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+# Cart
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cart
+  labels:
+    app: cart
+spec:
+  replicas: {{ .Values.cart.replicaCount }}
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+        - name: cart
+          image: "{{ .Values.images.cart }}:{{ .Values.images.tag }}"
+          ports:
+            - containerPort: 8080
+          resources:
+            {{- toYaml .Values.cart.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-cart
+spec:
+  selector:
+    app: cart
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+# Orders
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-orders
+  labels:
+    app: orders
+spec:
+  replicas: {{ .Values.orders.replicaCount }}
+  selector:
+    matchLabels:
+      app: orders
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+        - name: orders
+          image: "{{ .Values.images.orders }}:{{ .Values.images.tag }}"
+          ports:
+            - containerPort: 8080
+          resources:
+            {{- toYaml .Values.orders.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-orders
+spec:
+  selector:
+    app: orders
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+# Catalog
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-catalog
+  labels:
+    app: catalog
+spec:
+  replicas: {{ .Values.catalog.replicaCount }}
+  selector:
+    matchLabels:
+      app: catalog
+  template:
+    metadata:
+      labels:
+        app: catalog
+    spec:
+      containers:
+        - name: catalog
+          image: "{{ .Values.images.catalog }}:{{ .Values.images.tag }}"
+          ports:
+            - containerPort: 8080
+          resources:
+            {{- toYaml .Values.catalog.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-catalog
+spec:
+  selector:
+    app: catalog
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+# Checkout
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-checkout
+  labels:
+    app: checkout
+spec:
+  replicas: {{ .Values.checkout.replicaCount }}
+  selector:
+    matchLabels:
+      app: checkout
+  template:
+    metadata:
+      labels:
+        app: checkout
+    spec:
+      containers:
+        - name: checkout
+          image: "{{ .Values.images.checkout }}:{{ .Values.images.tag }}"
+          ports:
+            - containerPort: 8080
+          resources:
+            {{- toYaml .Values.checkout.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-checkout
+spec:
+  selector:
+    app: checkout
+  ports:
+    - port: 8080
+      targetPort: 8080

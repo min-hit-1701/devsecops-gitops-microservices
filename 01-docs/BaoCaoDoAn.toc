@@ -1,0 +1,78 @@
+\xpg@aux {}{vietnamese}
+\contentsline {section}{Lời cảm ơn}{4}{Doc-Start}%
+\contentsline {section}{Mục lục}{5}{Doc-Start}%
+\contentsline {section}{Danh mục hình}{7}{Doc-Start}%
+\contentsline {section}{Danh mục bảng}{8}{Doc-Start}%
+\contentsline {section}{Danh mục từ viết tắt}{9}{Doc-Start}%
+\contentsline {section}{Tóm tắt đồ án}{1}{table.1}%
+\contentsline {section}{\numberline {1}Mở đầu}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Lý do chọn đề tài}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Mục tiêu đồ án}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Đối tượng và phạm vi đồ án}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Phương pháp thực hiện}{3}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Tổng quan}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Kiến trúc Microservices}{4}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Từ Monolithic đến Microservices}{4}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Thách thức của Microservices}{4}{subsubsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.2}DevSecOps}{5}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Khái niệm}{5}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Các loại Security Testing trong DevSecOps}{6}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Các công cụ Security sử dụng trong đồ án}{6}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}GitOps}{7}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Khái niệm}{7}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Lợi ích của GitOps}{9}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Argo CD}{9}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Hai mô hình triển khai GitOps}{9}{subsubsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.4}Nền tảng Kubernetes và Amazon EKS}{10}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Kubernetes}{10}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Amazon EKS}{10}{subsubsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.5}Infrastructure as Code và Terraform}{10}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Các công cụ khác}{11}{subsection.2.6}%
+\contentsline {subsubsection}{\numberline {2.6.1}Jenkins}{11}{subsubsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.2}Kustomize}{12}{subsubsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.3}Helm}{12}{subsubsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.7}Policy as Code với Kyverno}{13}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Policy as Code với Kyverno}{13}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Sample Application: Retail Store}{13}{subsection.2.9}%
+\contentsline {section}{\numberline {3}Phương pháp và Thiết kế Hệ thống}{15}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Kiến trúc tổng thể}{15}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Cấu trúc Workspace đồ án}{17}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Thiết kế Hạ tầng AWS}{17}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Sơ đồ mạng VPC}{17}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}EKS Cluster}{18}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Kubernetes Addons}{19}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Thiết kế Security Pipeline}{20}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Thiết kế GitOps Pipeline}{22}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Mô hình 2-Repository}{22}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Kustomize Base \& Overlay}{23}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}Argo CD Application}{23}{subsubsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.6}Thiết kế ECR Repositories}{23}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Kết quả Triển khai và Kiểm thử}{25}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Triển khai hạ tầng}{25}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Kết quả Terraform Apply}{25}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Kết quả kiểm tra cluster}{26}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Kiểm tra ECR Repositories}{27}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Kiểm tra trên AWS Console}{28}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Triển khai CI Pipeline}{28}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Cấu trúc file CI (đã triển khai)}{29}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Security Gates}{30}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Quản lý Image Tag}{30}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Cập nhật GitOps Repo}{31}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}Cấu trúc file CI}{31}{subsubsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.5}Triển khai CD GitOps với Argo CD}{32}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}Kustomize Manifests}{32}{subsubsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.2}Argo CD Cấu hình}{32}{subsubsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.3}Quy trình Rollback}{33}{subsubsection.4.5.3}%
+\contentsline {subsubsection}{\numberline {4.5.4}Cấu trúc GitOps Repo}{33}{subsubsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.6}Triển khai Observability}{34}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Triển khai ứng dụng qua GitOps Pipeline}{35}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Triển khai Policy as Code với Kyverno}{36}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Kiểm tra bảo mật Infrastructure as Code với Terrascan}{37}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Đánh giá kết quả đạt được}{39}{subsection.4.10}%
+\contentsline {section}{\numberline {5}Kết luận và Hướng phát triển}{40}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Kết quả đã đạt được}{40}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Những đóng góp của đồ án}{41}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Hạn chế}{41}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Hướng phát triển}{41}{subsection.5.4}%
+\contentsline {section}{Tài liệu tham khảo}{43}{Item.53}%
+\contentsline {section}{Phụ lục}{45}{Item.71}%

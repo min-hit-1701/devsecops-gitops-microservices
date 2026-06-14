@@ -1,0 +1,8 @@
+FROM jenkins/jenkins:lts-jdk21
+USER root
+RUN apt-get update -qq && apt-get install -y -qq wget unzip python3 curl && rm -rf /var/lib/apt/lists/*
+RUN wget -q https://github.com/aquasecurity/trivy/releases/download/v0.71.0/trivy_0.71.0_Linux-64bit.tar.gz -O /tmp/trivy.tar.gz && tar xzf /tmp/trivy.tar.gz -C /usr/local/bin/ && rm /tmp/trivy.tar.gz
+RUN wget -q https://github.com/jeremylong/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip -O /tmp/dc.zip && unzip -q /tmp/dc.zip -d /opt/ && rm /tmp/dc.zip && mkdir -p /var/jenkins_home/owasp-data && chown -R jenkins:jenkins /var/jenkins_home/owasp-data
+RUN wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux-x64.zip -O /tmp/sonar.zip && unzip -q /tmp/sonar.zip -d /opt/ && rm /tmp/sonar.zip
+ENV PATH=/opt/sonar-scanner-6.2.1.4610-linux-x64/bin:/opt/dependency-check/bin:$PATH
+USER jenkins

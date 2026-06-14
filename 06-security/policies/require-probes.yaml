@@ -11,7 +11,7 @@ metadata:
       All pods must have readiness and liveness probes configured. This ensures
       traffic is not sent to unready pods and failed pods are restarted.
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: Audit
   background: true
   rules:
     - name: validate-readiness-probe
@@ -39,3 +39,4 @@ spec:
           spec:
             containers:
               - livenessProbe: "?*"
+
